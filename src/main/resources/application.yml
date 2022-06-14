@@ -1,0 +1,22 @@
+spring:  
+  application:
+    name: Api-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: admin
+          uri: lb://admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - RewritePath=/admin/(?<path>.*), /$\{path}
+            
+        - id: supv
+          uri: lb://supv
+          predicates:
+            - Path=/supv/**
+          filters:
+            - RewritePath=/sup/(?<path>.*), /$\{path}
