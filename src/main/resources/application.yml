@@ -1,8 +1,15 @@
-spring:  
+spring:    
   application:
     name: Api-gateway-service
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+            - GET
+            - POST
       discovery:
         locator:
           enabled: true
@@ -20,3 +27,33 @@ spring:
             - Path=/supv/**
           filters:
             - RewritePath=/sup/(?<path>.*), /$\{path}
+            
+        - id: batch-mng-ws
+          uri: lb://batch-mng-ws
+          predicates:
+            - Path=/batch-mng-ws/**
+          filters:
+            - RewritePath=/batch-mng-ws/(?<path>.*), /$\{path}
+            
+        - id: users-ws
+          uri: lb://users-ws
+          predicates:
+            - Path=/users-ws/**
+          filters:
+            - RewritePath=/users-ws/(?<path>.*), /$\{path}
+            
+        - id: auth-ws
+          uri: lb://auth-ws
+          predicates:
+            - Path=/auth-ws/**
+          filters:
+            - RewritePath=/auth-ws/(?<path>.*), /$\{path}
+        
+   
+    consul:
+      host: localhost
+      port: 8500    
+       
+            
+jwt:
+  secret: BvPHGM8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadwezxgeEByY
