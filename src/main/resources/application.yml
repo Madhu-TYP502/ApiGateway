@@ -48,6 +48,13 @@ spring:
             - Path=/auth-ws/**
           filters:
             - RewritePath=/auth-ws/(?<path>.*), /$\{path}
+            
+        - id: flinko-listner
+          uri: lb://flinko-listner
+          predicates:
+            - Path=/flinko-listner/**
+          filters:
+            - RewritePath=/flinko-listner/(?<path>.*), /$\{path}
         
    
     consul:
