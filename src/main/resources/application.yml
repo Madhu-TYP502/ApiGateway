@@ -14,7 +14,7 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: admin
+        - id: admin-ws
           uri: lb://admin
           predicates:
             - Path=/admin/**
@@ -28,12 +28,19 @@ spring:
           filters:
             - RewritePath=/sup/(?<path>.*), /$\{path}
             
-        - id: batch-mng-ws
-          uri: lb://batch-mng-ws
+        - id: branch-ws
+          uri: lb://branch-ws
           predicates:
-            - Path=/batch-mng-ws/**
+            - Path=/branch-ws/**
           filters:
             - RewritePath=/batch-mng-ws/(?<path>.*), /$\{path}
+            
+        - id: batch-ws
+          uri: lb://batch-ws
+          predicates:
+            - Path=/batch-ws/**
+          filters:
+            - RewritePath=/batch-ws/(?<path>.*), /$\{path}        
             
         - id: users-ws
           uri: lb://users-ws
